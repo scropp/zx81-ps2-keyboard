@@ -6,11 +6,9 @@ PS2dev kb(3,2);  //clock, data
 
 unsigned long timecount = 0;
 
-/*  x = 21,20,19,18,15
- *  y = 14,16,10,9,8,7,6,5
-*/
-
+//const int cols[] = { 15, A0, A1, A2, A3 };
 const int cols[] = { A3, A2, A1, A0, 15 };
+//const int rows[] = { 9, 8, 7, 6, 5, 10, 16, 14 };
 const int rows[] = { 14, 16, 10, 5, 6, 7, 8, 9 };
 
 int colCounter;
@@ -21,11 +19,6 @@ int button_down[ZX_ROWS][ZX_COLS];
 const int debounce_count = 3;
 
 const int pause_time = 50;
-
-// ScanCodes PressKey = TWO;
-
-
-
 
 void setup() {
   kb.keyboard_init();
@@ -42,13 +35,12 @@ void setup() {
   //rows are inputs and cols are outputs (for now at least)
   for (int r = 0; r < 8; r++) 
   {
-    pinMode(rows[r], INPUT);
-    digitalWrite(rows[r], LOW);
+    pinMode(rows[r], INPUT_PULLUP);
   }
   for (int c = 0; c < 5; c++) 
   {
     pinMode(cols[c], OUTPUT);
-    digitalWrite(cols[c], LOW);
+    digitalWrite(cols[c], HIGH);
   }
 }
 
@@ -72,7 +64,7 @@ void loop()
 //  delay(pause_time);
 
   // check if key is being pressed. (i.e. check if keys row state. is high)
-  if (digitalRead(rows[rowCounter]) == HIGH) // is it is pressed?
+  if (digitalRead(rows[rowCounter]) == LOW) // is it is pressed?
   { //pressed
 	  button_down[rowCounter][colCounter]++; // increment its counter
 	  if (button_down[rowCounter][colCounter] == debounce_count)
@@ -81,7 +73,6 @@ void loop()
 		  Serial.print(rowCounter);
 		  Serial.print(", ");
 		  Serial.println(colCounter);
-      Serial.flush();
 	  }
   }
   else
@@ -97,23 +88,17 @@ void loop()
   {
     rowCounter = 0;
     // set the col back to LOW.
-    digitalWrite(cols[colCounter], LOW);
+    digitalWrite(cols[colCounter], HIGH);
     colCounter++;
     if (colCounter == ZX_COLS)
     {
       colCounter = 0;
       delay(pause_time);
     };
-    digitalWrite(cols[colCounter], HIGH);
+    digitalWrite(cols[colCounter], LOW);
   }
  
 //    Serial.flush();
 
-  //Print letter every second
-//  if((millis() - timecount) > 1000) {
-//    kb.keyboard_mkbrk(PressKey); //Make + Break key
-//    Serial.print('.');
-//    timecount = millis();
-//  }
 
 }
