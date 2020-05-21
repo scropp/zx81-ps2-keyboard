@@ -14,6 +14,7 @@ The module is wired as follows:
 on the PS/2 side the script is using ps2dev library and the ps2 plug is wired to
 
 |Clock|Data|
+|-|-|
 |3|2|
  
 Also, 5v and GND are taken from the PS2 port to power the device (don't use a 3v arduino for this project)
