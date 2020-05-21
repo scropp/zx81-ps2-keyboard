@@ -1,4 +1,4 @@
-//ScanCodes and SpecialScanCodes taken from the ps2dev header file because I cant work out why I cant use the :: referencing.
+//ScanCodes and SpecialScanCodes taken from ps2dev library for simplicity as arduino compiler was playing up.
 
     // Enum containing all of the non-special keycodes/scancodes
     // (if you can't find the scancode you're looking for here, check the special scancodes)
@@ -143,12 +143,12 @@ const int ZX_COLS = 5;
 const ScanCodes zx81_map[ZX_ROWS][ZX_COLS] = {
   { ONE, TWO, THREE, FOUR, FIVE },
   { Q, W, E, R, T },
-  { SIX, SEVEN, EIGHT, NINE, ZERO },
+  { ZERO, NINE, EIGHT, SEVEN, SIX },
   { A, S, D, F, G },
-  { Y, U, I, O, P },
+  { P, O, I, U, Y },
   { LEFT_SHIFT, Z, X, C, V },
-  { H, J, K, L, ENTER },
-  { B, N, M, PERIOD, SPACE }
+  { ENTER, L, K, J, H },
+  { SPACE, PERIOD, M, N, B  }
   }; 
  
     
